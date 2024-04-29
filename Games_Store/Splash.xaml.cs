@@ -10,24 +10,31 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Games_Store
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Splash.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Splash : Window
     {
-        public MainWindow()
+        public Splash()
         {
             InitializeComponent();
         }
 
-        private void Btn_ConfirmOrder_Clicked(object sender, RoutedEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if(e.LeftButton == MouseButtonState.Pressed) 
+            {
+                DragMove();
+            }
+        }
 
+        private void Close_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
