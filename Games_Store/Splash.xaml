@@ -18,7 +18,9 @@
             VerticalAlignment="Top"
             Margin="5"
             Style="{StaticResource WindowButtonStyle}"
-            Content="{StaticResource close_ico}" Click="Close_Button_Click"/>
+            Content="{StaticResource close_ico}"
+            Click="Close_Button_Click"
+            Tag="CloseButton"/>
 
 
         <MediaElement x:Name="Loading_Gif"
@@ -29,7 +31,8 @@
             VerticalAlignment="Center"
             LoadedBehavior="Play"
             UnloadedBehavior="Manual"
-            Visibility="Visible"/>
+            Visibility="Visible"
+            MediaEnded="Loading_Gif_MediaEnded"/>
 
         <TextBlock x:Name="Loading_TextBlock"
             HorizontalAlignment="Center"

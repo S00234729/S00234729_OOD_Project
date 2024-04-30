@@ -25,9 +25,38 @@ namespace Games_Store
             InitializeComponent();
         }
 
-        private void Btn_ConfirmOrder_Clicked(object sender, RoutedEventArgs e)
+
+        private void Home_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        private void MainWindow_MediaEnded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void RestoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                WindowState = WindowState.Maximized;
+            }
+            else
+                WindowState = WindowState.Normal;
+        }
+
+        private void MinimiseButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }

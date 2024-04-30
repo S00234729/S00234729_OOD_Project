@@ -5,8 +5,79 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Games_Store"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Height="500" Width="1000"
+        FontFamily="Ariel"
+        x:Name="Home"
+        ResizeMode="NoResize"
+        Background="Crimson"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Title="Duck Games Launcher"
+        MouseDown="Home_MouseDown">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Orientation="Horizontal"
+            FlowDirection="RightToLeft">
+            <Button
+                x:Name="CloseButton"
+                Style="{StaticResource WindowButtonStyle}"
+                Content="{StaticResource close_ico}"
+                Click="CloseButton_Click"
+                Tag="IsClosedButton"/>
+
+            <Button
+                x:Name="RestoreButton"
+                
+                Margin="10,0"
+                Click="RestoreButton_Click">
+                <Button.Style>
+                    <Style
+                    TargetType="{x:Type Button}"
+                        BasedOn = "{StaticResource WindowButtonStyle}">
+                        <Setter Property="Content" Value="{StaticResource maximize_ico}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=Home, Path=WindowState}" Value="Maximised">
+                                <Setter Property="Content" Value="{StaticResource restore_ico}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+                </Button.Style>
+            </Button>
+
+            <Button
+                x:Name="MinimiseButton"
+                Style="{StaticResource WindowButtonStyle}"
+                Content="{StaticResource minimize_ico}"
+                Click="MinimiseButton_Click"/>
+        </StackPanel>
+        <MediaElement x:Name="Loading_Gif"
+                Grid.ColumnSpan="2"
+                Height="160"
+                Source="Assets/MainWindowOpen.gif"
+                Stretch="Uniform"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                LoadedBehavior="Play"
+                UnloadedBehavior="Manual"
+                Visibility="Visible"
+                MediaEnded="MainWindow_MediaEnded"/>
+
+        
+
+        <Grid Background="Black" Name="LeftMenu">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        </Grid>
         
     </Grid>
 </Window>

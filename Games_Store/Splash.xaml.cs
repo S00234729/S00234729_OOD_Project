@@ -36,5 +36,11 @@ namespace Games_Store
         {
             Close();
         }
+
+        private void Loading_Gif_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            this.Close();
+        }
     }
 }
