@@ -58,5 +58,19 @@ namespace Games_Store
         {
             WindowState = WindowState.Minimized;
         }
+
+
+
+        public bool IsMenuExpanded
+        {
+            get { return (bool)GetValue(IsMenuExpandedProperty); }
+            set { SetValue(IsMenuExpandedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsMenuExpanded.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsMenuExpandedProperty =
+            DependencyProperty.Register("IsMenuExpanded", typeof(bool), typeof(MainWindow), new PropertyMetadata(true));
+
+
     }
 }

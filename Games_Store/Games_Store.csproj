@@ -110,6 +110,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\DuckLogo.png" />
+    <Resource Include="Assets\Crash_bandicoot_logo.png" />
+    <Resource Include="Assets\COD.png" />
     <Content Include="Assets\MainWindowOpen.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

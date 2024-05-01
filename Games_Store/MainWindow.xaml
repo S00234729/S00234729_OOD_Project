@@ -77,7 +77,241 @@
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            <Grid.Style>
+                <Style
+                    TargetType="{x:Type Grid}">
+                    <Setter Property="Width" Value="275"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMenuExpanded, ElementName=Home}" Value="False">
+                            <Setter Property="Width" Value="100"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
         </Grid>
-        
+
+        <Image
+            HorizontalAlignment="Left"
+            Height="30"
+            Width="30"
+            Margin="34,24,34,0"
+            VerticalAlignment="Top"
+            Source="Assets/DuckLogo.png"/>
+        <StackPanel Margin="0,34,0,0"
+                    Grid.Row="1">
+            <StackPanel.Resources>
+                <Style
+                    TargetType="{x:Type RadioButton}">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="Gray"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="GroupName" Value="MenuButtons"/>
+                    <Setter Property="FontWeight" Value="Normal"/>
+                    <Setter Property="FontSize" Value="11"/>
+                    <Setter Property="Margin" Value="0,20,0,0"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <Border
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Rectangle
+                                            Name="indicator"
+                                            HorizontalAlignment="Left"
+                                            Width="3"/>
+
+                                        <Image
+                                            HorizontalAlignment="Left"
+                                            Height="31"
+                                            Margin="38,0,0,0"
+                                            VerticalAlignment="Top"
+                                            Width="31"
+                                            Grid.Row="1"
+                                            Source="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}}"/>
+
+                                        <TextBlock
+                                            x:Name="gameName"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Margin="18,0,0,0"
+                                            Grid.Column="1"
+                                            Text="{TemplateBinding Content}"
+                                            TextTrimming="WordEllipsis"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            FontWeight="{TemplateBinding FontWeight}"
+                                            FontSize="{TemplateBinding FontSize}"/>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger
+                                        Property="IsChecked"
+                                        Value="True">
+                                        <Setter TargetName="indicator"
+                                                Property="Shape.Fill"
+                                                Value="Orange"/>
+                                        <Setter TargetName="gameName"
+                                                Property="Foreground"
+                                                Value="White"/>
+                                    </Trigger>
+
+                                    <Trigger
+                                        Property="IsMouseOver"
+                                        Value="True">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard SpeedRatio="5">
+                                                    <ColorAnimation
+                                                        Storyboard.TargetProperty="(RadioButton.Foreground).Color"
+                                                        From="Gray"
+                                                        To="White"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                        <Trigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard SpeedRatio="5">
+                                                    <ColorAnimation
+                                                        Storyboard.TargetProperty="(RadioButton.Foreground).Color"
+                                                        From="White"
+                                                        To="Gray"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.ExitActions>
+                                    </Trigger>
+
+                                    <DataTrigger Binding="{Binding IsMenuExpanded, ElementName=Home}" Value="False">
+                                        <Setter
+                                            TargetName="gameName"
+                                            Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility"
+                            Value="Visible"/>
+                    <Setter Property="HorizontalAlignment"
+                            Value="Left"/>
+                    <Setter Property="VerticalAlignment"
+                            Value="Center"/>
+                    <Setter Property="Foreground"
+                            Value="White"/>
+                    <Setter Property="FontWeight"
+                            Value="Bold"/>
+                    <Setter Property="FontSize"
+                            Value="14"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMenuExpanded, ElementName=Home}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Resources>
+
+            <TextBlock
+                Text="Now Available"
+                Margin="37,18,0,0"/>
+            <RadioButton
+                Content="Grand Theft Auto 5"
+                Tag="Assets/gta5.png"/>
+            <RadioButton
+                Content="Call Of Duty"
+                Tag="Assets/COD.png"/>
+
+            <Path
+                Data="{StaticResource libraryIcon}"
+                Stroke="#333333"
+                Fill="#333333"
+                HorizontalAlignment="Left"
+                Stretch="Uniform"
+                Margin="45,18,0,0"
+                Width="16">
+                <Path.Style>
+                    <Style
+                        TargetType="{x:Type Path}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMenuExpanded, ElementName=Home}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Path.Style>
+            </Path>
+            <TextBlock
+                Text="Library"
+                Margin="37  ,18,0,0"/>
+            <RadioButton
+                IsChecked="True"
+                Content="Crash Bandicoot"
+                Tag="Assets/Crash_bandicoot_logo.png"/>
+
+        </StackPanel>
+
+        <ToggleButton
+            Grid.Row="2"
+            IsChecked="{Binding IsMenuExpanded, ElementName=Home, Mode=TwoWay, FallbackValue=True}"
+            Background="Transparent"
+            BorderThickness="2"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Height="26"
+            Width="30"
+            Margin="39,0,0,37"
+            Cursor="Hand">
+            <ToggleButton.Template>
+                <ControlTemplate
+                    TargetType="{x:Type ToggleButton}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}">
+                        <StackPanel
+                            Name="container"
+                            Orientation="Horizontal">
+                            <Path
+                                Name="iconPath"
+                                Stretch="Uniform"
+                                Fill="Gray"
+                                Width="15"
+                                Height="10"
+                                Data="{StaticResource rightArrow}"/>
+
+                            <Rectangle
+                                Name="separator"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Width="2"
+                                Fill="Gray"/>
+                        </StackPanel>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger
+                            Property="IsChecked"
+                            Value="True">
+                            <Setter
+                                TargetName="container"
+                                Property="FlowDirection"
+                                Value="RightToLeft"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ToggleButton.Template>
+            
+        </ToggleButton>
+
+
     </Grid>
+    
+    <
 </Window>
