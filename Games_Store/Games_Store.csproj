@@ -55,12 +55,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Control\GameNews.xaml.cs">
+      <DependentUpon>GameNews.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ScrollingView.cs" />
     <Compile Include="Splash.xaml.cs">
       <DependentUpon>Splash.xaml</DependentUpon>
     </Compile>
     <Page Include="Assets\icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\GameNews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -106,12 +114,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Placeholder.jpg" />
+    <Resource Include="Assets\Placeholder.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\DOOM.jpg" />
+    <Resource Include="Assets\FC3.jpg" />
+    <Resource Include="Assets\WatchDogs.jpg" />
     <Resource Include="Assets\DuckLogo.png" />
     <Resource Include="Assets\Crash_bandicoot_logo.png" />
     <Resource Include="Assets\COD.png" />
+    <Resource Include="Assets\baldski.jpg" />
+    <Resource Include="Assets\Hades_Sale.jpg" />
+    <Resource Include="Assets\Background.png" />
     <Content Include="Assets\MainWindowOpen.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

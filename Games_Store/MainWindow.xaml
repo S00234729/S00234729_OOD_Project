@@ -3,18 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Games_Store"
+        xmlns:local="clr-namespace:Games_Store" xmlns:control="clr-namespace:Games_Store.Control"
         mc:Ignorable="d"
         Height="500" Width="1000"
         FontFamily="Ariel"
         x:Name="Home"
         ResizeMode="NoResize"
-        Background="Crimson"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Title="Duck Games Launcher"
         MouseDown="Home_MouseDown">
+
+    <Window.Style>
+        <Style
+            TargetType="{x:Type Window}">
+            <Setter Property="Background" Value="DarkGray"/>
+           
+        </Style>
+    </Window.Style>
     <Grid>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/Background.png"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -57,19 +68,9 @@
                 Content="{StaticResource minimize_ico}"
                 Click="MinimiseButton_Click"/>
         </StackPanel>
-        <MediaElement x:Name="Loading_Gif"
-                Grid.ColumnSpan="2"
-                Height="160"
-                Source="Assets/MainWindowOpen.gif"
-                Stretch="Uniform"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                LoadedBehavior="Play"
-                UnloadedBehavior="Manual"
-                Visibility="Visible"
-                MediaEnded="MainWindow_MediaEnded"/>
-
         
+
+
 
         <Grid Background="Black" Name="LeftMenu">
             <Grid.RowDefinitions>
@@ -83,7 +84,29 @@
                     <Setter Property="Width" Value="275"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsMenuExpanded, ElementName=Home}" Value="False">
-                            <Setter Property="Width" Value="100"/>
+
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard SpeedRatio="2"
+                                                AccelerationRatio=".5"
+                                                DecelerationRatio=".5">
+                                        <DoubleAnimation
+                                            Storyboard.TargetProperty="Width"
+                                            To="109"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard SpeedRatio="2"
+                                                AccelerationRatio=".5"
+                                                DecelerationRatio=".5">
+                                        <DoubleAnimation
+                                            Storyboard.TargetProperty="Width"
+                                            To="275"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -310,8 +333,300 @@
             
         </ToggleButton>
 
+        <Grid
+            Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="135"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <UniformGrid
+                Columns="4"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center">
+                <UniformGrid.Resources>
+                    <Style TargetType="{x:Type RadioButton}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="LightGray"/>
+                        <Setter Property="FontSize" Value="17"/>
+                        <Setter Property="Margin" Value="10,0"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type RadioButton}">
+                                    <Border
+                                        Background="{TemplateBinding Background}">
+                                        <TextBlock
+                                            Name="Tab"
+                                            Text="{TemplateBinding Content}"
+                                            TextAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Trigger>
+
+                                        <Trigger
+                                             Property="IsMouseOver"
+                                             Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard SpeedRatio="3">
+                                                        <ColorAnimation
+                                                            Storyboard.TargetProperty="(ToggleButton.Foreground).Color"
+                                                            To="White"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard SpeedRatio="3">
+                                                        <ColorAnimation
+                                                            Storyboard.TargetProperty="(ToggleButton.Foreground).Color"
+                                                            To="LightGray"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        
+                    </Style>
+                </UniformGrid.Resources>
+                <RadioButton
+                    Content="GAMES"
+                    IsChecked="True"/>
+                <RadioButton
+                    Content="STORE"/>
+                <RadioButton
+                    Content="SETTINGS"/>
+
+                <Ellipse
+                    StrokeThickness="2"
+                    Stroke="White"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,33,0">
+                    <Ellipse.Fill>
+                        <ImageBrush
+                            ImageSource="Assets/baldski.jpg"
+                            Stretch="UniformToFill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </UniformGrid>
+
+            <Grid
+                Grid.Row="1"
+                VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="370"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.Resources>
+                    <Style
+                        x:Key="NavButtonStyle"
+                        TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Grid>
+                                        <Border
+                                            Name="btn"
+                                            Background="#222222"
+                                            Opacity=".5"/>
+                                        <Path
+                                            Name="icon"
+                                            Data="{StaticResource leftArrow}"
+                                            Stretch="Uniform"
+                                            Height="15"
+                                            Fill="White"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="btn"
+                                                    Property="Opacity"
+                                                    Value="1"/>
+                                        </Trigger>
+                                        <Trigger Property="HorizontalAlignment" Value="Right">
+                                            <Setter TargetName="icon"
+                                                    Property="Data"
+                                                    Value="{StaticResource rightArrow}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Grid.Resources>
+
+                <StackPanel
+                    Margin="27">
+                    <StackPanel.Resources>
+                        <Style
+                            TargetType="{x:Type Button}">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Height" Value="66"/>
+                            <Setter Property="Width" Value="256"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border CornerRadius="6"
+                                                x:Name="btn_Epic">
+                                            <Border.Background>
+                                                <LinearGradientBrush
+                                                    StartPoint="0,0" EndPoint="0,1">
+                                                    <GradientStop
+                                                        x:Name="GradStop1"
+                                                        Color="#F6F6F6"
+                                                        Offset="0"/>
+                                                    <GradientStop
+                                                        x:Name="GradStop2"
+                                                        Color="#E0E0E0"
+                                                        Offset=".55"/>
+                                                    <GradientStop
+                                                        x:Name="GradStop3"
+                                                        Color="#C9C9C9"
+                                                        Offset=".70"/>
+
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+
+                                            <Border
+                                                CornerRadius="6"
+                                                BorderThickness="1"
+                                                BorderBrush="Black"
+                                                Margin="5">
+                                                <TextBlock
+                                                    Text="{TemplateBinding Content}"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            </Border>
+                                        </Border>
+
+                                        <ControlTemplate.Triggers>
+                                        <Trigger
+                                             Property="IsMouseOver"
+                                             Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard SpeedRatio="5">
+                                                        <ColorAnimation
+                                                            Storyboard.TargetName="GradStop1"
+                                                         Storyboard.TargetProperty="Color"
+                                                         To="#FCAF17"/>
+                                                        <ColorAnimation
+                                                           Storyboard.TargetName="GradStop2"
+                                                           Storyboard.TargetProperty="Color"
+                                                           To="#FCAF17"/>
+                                                        <ColorAnimation
+                                                            Storyboard.TargetName="GradStop3"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="#FCAF17"/>
+                                                        </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard SpeedRatio="5">
+                                                            <ColorAnimation
+                                                                Storyboard.TargetName="GradStop1"
+                                                                Storyboard.TargetProperty="Color"
+                                                                To="#C9C9C9"/>
+                                                            <ColorAnimation
+                                                               Storyboard.TargetName="GradStop2"
+                                                               Storyboard.TargetProperty="Color"
+                                                               To="#C9C9C9"/>
+                                                            <ColorAnimation
+                                                               Storyboard.TargetName="GradStop3"
+                                                               Storyboard.TargetProperty="Color"
+                                                               To="#C9C9C9"/>  
+                                                        </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                        </ControlTemplate.Triggers>
+
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            
+                        </Style>
+                    </StackPanel.Resources>
+                    <Image
+                        Width="250"
+                        Source="Assets/Crash_bandicoot_logo.png"
+                        Stretch="Uniform"
+                        HorizontalAlignment="Center"
+                        Panel.ZIndex="1"/>
+                    <Button
+                        Content="PLAY ON EPIC"
+                        FontSize="20"
+                        FontWeight="ExtraBold"/>
+                </StackPanel>
+
+                <control:ScrollingView
+                    Grid.Column="1"
+                    x:Name="scrollViewer"
+                    HorizontalScrollBarVisibility="Hidden"
+                    VerticalScrollBarVisibility="Disabled">
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Background="Transparent"
+                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                        ScrollViewer.CanContentScroll="True">
+                        <control:GameNews
+                            Caption="Hades Now 50% Off!!"
+                            Source="Assets/Hades_Sale.jpg"/>
+                        <control:GameNews
+                            Caption="Rumoured Far Cry 3 Remake TBC Next week"
+                            Source="Assets/FC3.jpg"
+                            Margin="20,0,0,0"/>
+                        <control:GameNews
+                            Caption="Doom Eternal Set To Get Next DLC Within The Next Mounth"
+                            Source="Assets/DOOM.jpg"
+                            Margin="20,0,0,0"/>
+                        <control:GameNews
+                            Caption="Our Thoughts On The Watch Dogs Remaster"
+                            Source="Assets/WatchDogs.jpg"
+                            Margin="20,0,0,0"/>
+                    </StackPanel>
+                </control:ScrollingView>
+
+                <Button
+                    Name="btn_NavLeft"
+                    Click="btn_NavLeft_Click"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Height="38" Width="38"
+                    Style="{StaticResource NavButtonStyle}"/>
+
+                <Button
+                    Name="btn_NavRight"
+                    Click="btn_NavRight_Click"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Height="38" Width="38"
+                    Style="{StaticResource NavButtonStyle}"/>
+            </Grid>
+        </Grid>
+
 
     </Grid>
     
-    <
+    
 </Window>
